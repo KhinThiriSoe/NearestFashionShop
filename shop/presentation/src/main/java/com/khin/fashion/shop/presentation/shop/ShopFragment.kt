@@ -1,5 +1,6 @@
 package com.khin.fashion.shop.presentation.shop
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.*
@@ -60,6 +62,11 @@ class ShopFragment : Fragment() {
         _binding = null
     }
 
+    override fun onStart() {
+        super.onStart()
+        checkPermission()
+    }
+
     private fun checkPermission() {
         when {
             PermissionUtils.isAccessFineLocationGranted(requireContext()) -> {
@@ -95,14 +102,7 @@ class ShopFragment : Fragment() {
                 override fun onLocationResult(locationResult: LocationResult) {
                     super.onLocationResult(locationResult)
                     for (location in locationResult.locations) {
-                        viewModel.currentLocation.value?.let {
-                            if (it.distanceTo(location) > 10f) {
-                                viewModel.load()
-                                viewModel.currentLocation.value = location
-                            }
-                        } ?: kotlin.run {
-                            viewModel.currentLocation.value = location
-                        }
+                        viewModel.currentLocation.value = location
                     }
                 }
             },
@@ -143,7 +143,12 @@ class ShopFragment : Fragment() {
         binding.recyclerViewShop.adapter = adapter
 
         binding.floatingButtonShopGetLocation.setOnClickListener {
-            checkPermission()
+            if (PermissionUtils.isAccessFineLocationGranted(requireContext())) {
+                setUpLocationListener()
+                viewModel.load()
+            } else {
+                checkPermission()
+            }
         }
     }
 

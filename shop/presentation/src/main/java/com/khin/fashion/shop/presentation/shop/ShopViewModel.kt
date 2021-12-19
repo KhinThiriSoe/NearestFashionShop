@@ -1,6 +1,7 @@
 package com.khin.fashion.shop.presentation.shop
 
 import android.location.Location
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.khin.fashion.core.domain.coroutines.CoroutineDispatcherProvider
