@@ -93,8 +93,8 @@ class ShopFragment : Fragment() {
         val fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(requireActivity())
         val locationRequest = LocationRequest()
-            .setInterval(1000)
-            .setFastestInterval(1000)
+            .setInterval(500)
+            .setFastestInterval(500)
             .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
         fusedLocationProviderClient.requestLocationUpdates(
             locationRequest,
