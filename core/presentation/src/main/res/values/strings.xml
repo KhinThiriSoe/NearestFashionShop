@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">presentation</string>
+    <string name="overlay_image">Overlay Image</string>
+    <string name="core_try_again">Try again</string>
+    <string name="core_no_internet">You are offline</string>
+    <string name="core_generic_error">Something went wrong</string>
+</resources>

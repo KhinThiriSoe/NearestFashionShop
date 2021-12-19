@@ -1,0 +1,94 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-parcelize'
+apply plugin: 'kotlin-kapt'
+
+android {
+
+    def localProperties = new Properties()
+    localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+
+    compileSdkVersion versions.compileSdk
+
+    defaultConfig {
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    sourceSets {
+        main.java.srcDirs('src/main/kotlin')
+        dev.java.srcDirs('src/dev/kotlin')
+        prod.java.srcDirs('src/prod/kotlin')
+        staging.java.srcDirs('src/prod/kotlin')
+        androidTest.java.srcDirs("src/androidTest/kotlin")
+        test.java.srcDirs("src/test/kotlin")
+        debug.java.srcDirs("src/debug/kotlin")
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "API_KEY", "\"" + localProperties['apiKey'] + "\"")
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "API_KEY", "\"" + localProperties['apiKey'] + "\"")
+        }
+    }
+
+    flavorDimensions 'env'
+    productFlavors {
+        dev {
+            dimension 'env'
+        }
+        staging {
+            dimension 'env'
+        }
+        prod {
+            dimension 'env'
+        }
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        exclude "META-INF/LICENSE*"
+        exclude "META-INF/*"
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation jetbrains.jdk7
+    implementation jetbrains.coroutines
+
+    implementation core_ktx
+
+    // Koin
+    implementation koin.core
+    implementation koin.android
+
+    // Unit test
+    testImplementation unit_test.junit
+    testImplementation unit_test.androidx_core_testing
+    testImplementation unit_test.jetbrains_coroutines_test
+    testImplementation unit_test.mockito_core
+    testImplementation unit_test.mockito_kotlin
+    testImplementation unit_test.core_ktx
+    testImplementation unit_test.androidx_junit
+}

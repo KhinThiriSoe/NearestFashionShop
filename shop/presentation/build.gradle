@@ -1,0 +1,12 @@
+apply from: '../../base-android.gradle'
+apply from: '../../base-presentation.gradle'
+apply plugin: 'kotlin-android'
+
+dependencies {
+    implementation project(path: ':core:presentation')
+    implementation project(path: ':shop:domain')
+    testImplementation project(path: ':android-testutils')
+
+    implementation "com.google.android.gms:play-services-location:19.0.0"
+
+}

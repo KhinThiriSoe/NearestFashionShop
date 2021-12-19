@@ -1,0 +1,31 @@
+android.buildFeatures {
+    viewBinding true
+    dataBinding true
+}
+
+dependencies {
+
+    implementation project(path: ':core:domain')
+
+    // UI
+    implementation ui.appcompat
+    implementation ui.activity_ktx
+    implementation ui.fragment_ktx
+    implementation ui.material
+    implementation ui.constraintlayout
+    implementation ui.glide
+    kapt ui.glide_compiler
+
+    // androidx lifecycle
+    implementation lifecycle.runtime_ktx
+    implementation lifecycle.livedata_ktx
+    implementation lifecycle.viewmodel_ktx
+
+    // navigation
+    implementation navigation.fragment_ktx
+    implementation navigation.ui_ktx
+
+    // Koin
+    implementation koin.core
+    implementation koin.android
+}

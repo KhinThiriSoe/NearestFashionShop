@@ -1,0 +1,26 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+
+dependencies {
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation jetbrains.jdk7
+    implementation jetbrains.coroutines
+    implementation retrofit.converter_gson
+
+    // Koin
+    implementation koin.core
+
+    // Unit test
+    testImplementation unit_test.junit
+    testImplementation unit_test.androidx_core_testing
+    testImplementation unit_test.jetbrains_coroutines_test
+    testImplementation unit_test.mockito_core
+    testImplementation unit_test.mockito_kotlin
+    testImplementation unit_test.core_ktx
+    testImplementation unit_test.androidx_junit
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8

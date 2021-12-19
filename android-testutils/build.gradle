@@ -1,0 +1,12 @@
+apply from: '../base-android.gradle'
+
+dependencies {
+    implementation lifecycle.runtime_ktx
+    implementation lifecycle.livedata_ktx
+    implementation lifecycle.viewmodel_ktx
+    api project(path: ':testutils')
+
+    implementation unit_test.junit
+    implementation unit_test.androidx_core_testing
+    implementation unit_test.jetbrains_coroutines_test
+}

@@ -1,0 +1,12 @@
+dependencies {
+    // retrofit
+    implementation retrofit.core
+    implementation retrofit.logging_interceptor
+    implementation retrofit.okhttp
+    implementation retrofit.converter_gson
+    implementation retrofit.coroutines_adapter
+
+    // Koin
+    implementation koin.core
+    implementation koin.android
+}

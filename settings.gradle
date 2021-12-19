@@ -1,0 +1,17 @@
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "Fashion"
+include ':app'
+include ':core:data'
+include ':core:domain'
+include ':core:presentation'
+include ':shop:domain'
+include ':shop:data'
+include ':shop:presentation'
+include ':android-testutils'
+include ':testutils'

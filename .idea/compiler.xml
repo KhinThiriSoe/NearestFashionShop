@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel target="1.8">
+      <module name="Fashion.android-testutils" target="11" />
+      <module name="Fashion.app" target="11" />
+      <module name="Fashion.core.data" target="11" />
+      <module name="Fashion.core.presentation" target="11" />
+      <module name="Fashion.shop.data" target="11" />
+      <module name="Fashion.shop.presentation" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

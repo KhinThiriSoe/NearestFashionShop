@@ -1,0 +1,121 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+
+    compileSdkVersion versions.compileSdk
+
+    defaultConfig {
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
+        applicationId "com.khin.fashion"
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+
+        def keystorePropsFile = rootProject.file('.keystores/keystore.properties')
+
+        if (keystorePropsFile.exists()) {
+
+            def keystoreProps = new Properties()
+            keystoreProps.load(new FileInputStream(keystorePropsFile))
+
+            dev {
+                storeFile file(keystoreProps.getProperty('dev.keystore.path'))
+                storePassword keystoreProps.getProperty('dev.keystore.password')
+                keyAlias keystoreProps.getProperty('dev.key.alias')
+                keyPassword keystoreProps.getProperty('dev.key.password')
+            }
+
+            staging {
+                storeFile file(keystoreProps.getProperty('staging.keystore.path'))
+                storePassword keystoreProps.getProperty('staging.keystore.password')
+                keyAlias keystoreProps.getProperty('staging.key.alias')
+                keyPassword keystoreProps.getProperty('staging.key.password')
+            }
+
+            prod {
+                storeFile file(keystoreProps.getProperty('prod.keystore.path'))
+                storePassword keystoreProps.getProperty('prod.keystore.password')
+                keyAlias keystoreProps.getProperty('prod.key.alias')
+                keyPassword keystoreProps.getProperty('prod.key.password')
+            }
+
+        } else {
+            dev {}
+            staging {}
+            prod {}
+        }
+
+    }
+
+    android.buildFeatures {
+        viewBinding true
+        dataBinding true
+    }
+
+    buildTypes {
+
+        debug {
+            debuggable true
+            versionNameSuffix '-DEBUG'
+            minifyEnabled false
+            testCoverageEnabled true
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+    }
+
+    flavorDimensions 'env'
+
+    productFlavors {
+        dev {
+            dimension 'env'
+            signingConfig signingConfigs.dev
+            applicationId "com.khin.fashion.dev"
+        }
+
+        staging {
+            dimension 'env'
+            signingConfig signingConfigs.staging
+            applicationId "com.khin.fashion.staging"
+        }
+
+        prod {
+            dimension 'env'
+            signingConfig signingConfigs.prod
+            applicationId "com.khin.fashion"
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation ui.material
+
+    // Koin
+    implementation koin.core
+    implementation koin.android
+
+    implementation project(path: ':core:data')
+    implementation project(path: ':core:domain')
+    implementation project(path: ':core:presentation')
+    implementation project(path: ':shop:data')
+    implementation project(path: ':shop:domain')
+    implementation project(path: ':shop:presentation')
+
+}

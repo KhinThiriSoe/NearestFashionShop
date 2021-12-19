@@ -1,0 +1,8 @@
+apply from: '../../base-android.gradle'
+apply from: '../../base-data.gradle'
+
+dependencies {
+    implementation project(path: ':core:data')
+    implementation project(path: ':core:domain')
+    implementation project(path: ':shop:domain')
+}
