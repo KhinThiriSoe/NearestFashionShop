@@ -93,8 +93,8 @@ class ShopFragment : Fragment() {
         val fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(requireActivity())
         val locationRequest = LocationRequest()
-            .setInterval(500)
-            .setFastestInterval(500)
+            .setInterval(10)
+            .setFastestInterval(10)
             .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
         fusedLocationProviderClient.requestLocationUpdates(
             locationRequest,
@@ -144,8 +144,12 @@ class ShopFragment : Fragment() {
 
         binding.floatingButtonShopGetLocation.setOnClickListener {
             if (PermissionUtils.isAccessFineLocationGranted(requireContext())) {
-                setUpLocationListener()
-                viewModel.load()
+                if (PermissionUtils.isLocationEnabled(requireContext())) {
+                    setUpLocationListener()
+                    viewModel.load()
+                } else {
+                    PermissionUtils.showGPSNotEnabledDialog(requireContext())
+                }
             } else {
                 checkPermission()
             }

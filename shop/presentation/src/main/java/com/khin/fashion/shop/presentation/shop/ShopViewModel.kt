@@ -28,6 +28,7 @@ class ShopViewModel(
     private var mainJob: Job? = null
 
     private var localPick: List<LocalPickup> = emptyList()
+
     val currentLocation = MutableLiveData<Location?>()
 
     fun load() {
