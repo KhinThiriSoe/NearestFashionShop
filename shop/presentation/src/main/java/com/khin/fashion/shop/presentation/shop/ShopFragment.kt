@@ -62,11 +62,6 @@ class ShopFragment : Fragment() {
         _binding = null
     }
 
-    override fun onStart() {
-        super.onStart()
-        checkPermission()
-    }
-
     private fun checkPermission() {
         when {
             PermissionUtils.isAccessFineLocationGranted(requireContext()) -> {

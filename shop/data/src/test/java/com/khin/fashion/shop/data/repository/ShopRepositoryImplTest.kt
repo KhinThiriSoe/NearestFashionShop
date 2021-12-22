@@ -20,10 +20,13 @@ class ShopRepositoryImplTest {
 
     @Test
     fun `success - getShop - pickup list returned`() = runBlockingTest {
+        // arrange
         whenever(shopService.getShopList()).thenReturn(createRemoteShop())
 
+        // act
         val result = SUT.getShops()
 
+        // assert
         assertEquals(RepositoryResult.Success(listOf<LocalPickup>(createLocalPickup())), result)
     }
 

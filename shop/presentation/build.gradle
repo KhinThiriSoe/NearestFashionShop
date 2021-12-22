@@ -1,6 +1,5 @@
 apply from: '../../base-android.gradle'
 apply from: '../../base-presentation.gradle'
-apply plugin: 'kotlin-android'
 
 dependencies {
     implementation project(path: ':core:presentation')
